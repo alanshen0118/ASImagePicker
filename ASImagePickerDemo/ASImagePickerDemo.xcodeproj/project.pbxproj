@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1801AB091D6ED0A800F3CE55 /* ASAlbumListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB081D6ED0A800F3CE55 /* ASAlbumListController.m */; };
+		1801AB1C1D6EEF1800F3CE55 /* ASAlbumCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB1B1D6EEF1800F3CE55 /* ASAlbumCustomCell.m */; };
+		1801AB251D70241000F3CE55 /* ASPhotoGridController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB241D70241000F3CE55 /* ASPhotoGridController.m */; };
+		1801AB281D7025E700F3CE55 /* ASPhotoGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB271D7025E700F3CE55 /* ASPhotoGridCell.m */; };
+		1801AB611D70354100F3CE55 /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB5E1D70354000F3CE55 /* NSIndexSet+Convenience.m */; };
+		1801AB621D70354100F3CE55 /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801AB601D70354000F3CE55 /* UICollectionView+Convenience.m */; };
+		180D1F371D6D9FDA008A72AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D1F361D6D9FDA008A72AA /* main.m */; };
+		180D1F3A1D6D9FDA008A72AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D1F391D6D9FDA008A72AA /* AppDelegate.m */; };
+		180D1F3D1D6D9FDA008A72AA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D1F3C1D6D9FDA008A72AA /* ViewController.m */; };
+		180D1F401D6D9FDA008A72AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D1F3E1D6D9FDA008A72AA /* Main.storyboard */; };
+		180D1F421D6D9FDA008A72AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 180D1F411D6D9FDA008A72AA /* Assets.xcassets */; };
+		180D1F451D6D9FDA008A72AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D1F431D6D9FDA008A72AA /* LaunchScreen.storyboard */; };
+		180D1F501D6D9FDA008A72AA /* ASImagePickerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D1F4F1D6D9FDA008A72AA /* ASImagePickerDemoTests.m */; };
+		183C77D71D73E2F50047DD74 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 183C77D61D73E2F50047DD74 /* mask.png */; };
+		183C77DA1D73E86D0047DD74 /* ASImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C77D91D73E86D0047DD74 /* ASImagePickerController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		180D1F4C1D6D9FDA008A72AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 180D1F2A1D6D9FDA008A72AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 180D1F311D6D9FDA008A72AA;
+			remoteInfo = ASImagePickerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1801AB071D6ED0A800F3CE55 /* ASAlbumListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAlbumListController.h; sourceTree = "<group>"; };
+		1801AB081D6ED0A800F3CE55 /* ASAlbumListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAlbumListController.m; sourceTree = "<group>"; };
+		1801AB1A1D6EEF1800F3CE55 /* ASAlbumCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAlbumCustomCell.h; sourceTree = "<group>"; };
+		1801AB1B1D6EEF1800F3CE55 /* ASAlbumCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAlbumCustomCell.m; sourceTree = "<group>"; };
+		1801AB231D70241000F3CE55 /* ASPhotoGridController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGridController.h; sourceTree = "<group>"; };
+		1801AB241D70241000F3CE55 /* ASPhotoGridController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGridController.m; sourceTree = "<group>"; };
+		1801AB261D7025E700F3CE55 /* ASPhotoGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGridCell.h; sourceTree = "<group>"; };
+		1801AB271D7025E700F3CE55 /* ASPhotoGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGridCell.m; sourceTree = "<group>"; };
+		1801AB5D1D70354000F3CE55 /* NSIndexSet+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+Convenience.h"; sourceTree = "<group>"; };
+		1801AB5E1D70354000F3CE55 /* NSIndexSet+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+Convenience.m"; sourceTree = "<group>"; };
+		1801AB5F1D70354000F3CE55 /* UICollectionView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Convenience.h"; sourceTree = "<group>"; };
+		1801AB601D70354000F3CE55 /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
+		180D1F321D6D9FDA008A72AA /* ASImagePickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASImagePickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		180D1F361D6D9FDA008A72AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		180D1F381D6D9FDA008A72AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		180D1F391D6D9FDA008A72AA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		180D1F3B1D6D9FDA008A72AA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		180D1F3C1D6D9FDA008A72AA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		180D1F3F1D6D9FDA008A72AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		180D1F411D6D9FDA008A72AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		180D1F441D6D9FDA008A72AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		180D1F461D6D9FDA008A72AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		180D1F4B1D6D9FDA008A72AA /* ASImagePickerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASImagePickerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		180D1F4F1D6D9FDA008A72AA /* ASImagePickerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASImagePickerDemoTests.m; sourceTree = "<group>"; };
+		180D1F511D6D9FDA008A72AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		183C77D61D73E2F50047DD74 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
+		183C77D81D73E86D0047DD74 /* ASImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASImagePickerController.h; sourceTree = "<group>"; };
+		183C77D91D73E86D0047DD74 /* ASImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASImagePickerController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		180D1F2F1D6D9FDA008A72AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		180D1F481D6D9FDA008A72AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1801AB021D6EC38500F3CE55 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1801AB5D1D70354000F3CE55 /* NSIndexSet+Convenience.h */,
+				1801AB5E1D70354000F3CE55 /* NSIndexSet+Convenience.m */,
+				1801AB5F1D70354000F3CE55 /* UICollectionView+Convenience.h */,
+				1801AB601D70354000F3CE55 /* UICollectionView+Convenience.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		180D1F291D6D9FDA008A72AA = {
+			isa = PBXGroup;
+			children = (
+				180D1F341D6D9FDA008A72AA /* ASImagePickerDemo */,
+				180D1F4E1D6D9FDA008A72AA /* ASImagePickerDemoTests */,
+				180D1F331D6D9FDA008A72AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		180D1F331D6D9FDA008A72AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				180D1F321D6D9FDA008A72AA /* ASImagePickerDemo.app */,
+				180D1F4B1D6D9FDA008A72AA /* ASImagePickerDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		180D1F341D6D9FDA008A72AA /* ASImagePickerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				180D1F5A1D6D9FF6008A72AA /* ASImagePicker */,
+				180D1F381D6D9FDA008A72AA /* AppDelegate.h */,
+				180D1F391D6D9FDA008A72AA /* AppDelegate.m */,
+				180D1F3B1D6D9FDA008A72AA /* ViewController.h */,
+				180D1F3C1D6D9FDA008A72AA /* ViewController.m */,
+				180D1F3E1D6D9FDA008A72AA /* Main.storyboard */,
+				180D1F411D6D9FDA008A72AA /* Assets.xcassets */,
+				180D1F431D6D9FDA008A72AA /* LaunchScreen.storyboard */,
+				180D1F461D6D9FDA008A72AA /* Info.plist */,
+				180D1F351D6D9FDA008A72AA /* Supporting Files */,
+			);
+			path = ASImagePickerDemo;
+			sourceTree = "<group>";
+		};
+		180D1F351D6D9FDA008A72AA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				180D1F361D6D9FDA008A72AA /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		180D1F4E1D6D9FDA008A72AA /* ASImagePickerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				180D1F4F1D6D9FDA008A72AA /* ASImagePickerDemoTests.m */,
+				180D1F511D6D9FDA008A72AA /* Info.plist */,
+			);
+			path = ASImagePickerDemoTests;
+			sourceTree = "<group>";
+		};
+		180D1F5A1D6D9FF6008A72AA /* ASImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				1801AB021D6EC38500F3CE55 /* Tools */,
+				180D1F5C1D6DA20A008A72AA /* UI */,
+			);
+			path = ASImagePicker;
+			sourceTree = "<group>";
+		};
+		180D1F5C1D6DA20A008A72AA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1801AB071D6ED0A800F3CE55 /* ASAlbumListController.h */,
+				1801AB081D6ED0A800F3CE55 /* ASAlbumListController.m */,
+				1801AB1A1D6EEF1800F3CE55 /* ASAlbumCustomCell.h */,
+				1801AB1B1D6EEF1800F3CE55 /* ASAlbumCustomCell.m */,
+				1801AB231D70241000F3CE55 /* ASPhotoGridController.h */,
+				1801AB241D70241000F3CE55 /* ASPhotoGridController.m */,
+				1801AB261D7025E700F3CE55 /* ASPhotoGridCell.h */,
+				1801AB271D7025E700F3CE55 /* ASPhotoGridCell.m */,
+				183C77D81D73E86D0047DD74 /* ASImagePickerController.h */,
+				183C77D91D73E86D0047DD74 /* ASImagePickerController.m */,
+				183C77CB1D73DCA00047DD74 /* Resource */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		183C77CB1D73DCA00047DD74 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				183C77D61D73E2F50047DD74 /* mask.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		180D1F311D6D9FDA008A72AA /* ASImagePickerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 180D1F541D6D9FDA008A72AA /* Build configuration list for PBXNativeTarget "ASImagePickerDemo" */;
+			buildPhases = (
+				180D1F2E1D6D9FDA008A72AA /* Sources */,
+				180D1F2F1D6D9FDA008A72AA /* Frameworks */,
+				180D1F301D6D9FDA008A72AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ASImagePickerDemo;
+			productName = ASImagePickerDemo;
+			productReference = 180D1F321D6D9FDA008A72AA /* ASImagePickerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		180D1F4A1D6D9FDA008A72AA /* ASImagePickerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 180D1F571D6D9FDA008A72AA /* Build configuration list for PBXNativeTarget "ASImagePickerDemoTests" */;
+			buildPhases = (
+				180D1F471D6D9FDA008A72AA /* Sources */,
+				180D1F481D6D9FDA008A72AA /* Frameworks */,
+				180D1F491D6D9FDA008A72AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				180D1F4D1D6D9FDA008A72AA /* PBXTargetDependency */,
+			);
+			name = ASImagePickerDemoTests;
+			productName = ASImagePickerDemoTests;
+			productReference = 180D1F4B1D6D9FDA008A72AA /* ASImagePickerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		180D1F2A1D6D9FDA008A72AA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = AlanSim;
+				TargetAttributes = {
+					180D1F311D6D9FDA008A72AA = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					180D1F4A1D6D9FDA008A72AA = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 180D1F311D6D9FDA008A72AA;
+					};
+				};
+			};
+			buildConfigurationList = 180D1F2D1D6D9FDA008A72AA /* Build configuration list for PBXProject "ASImagePickerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 180D1F291D6D9FDA008A72AA;
+			productRefGroup = 180D1F331D6D9FDA008A72AA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				180D1F311D6D9FDA008A72AA /* ASImagePickerDemo */,
+				180D1F4A1D6D9FDA008A72AA /* ASImagePickerDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		180D1F301D6D9FDA008A72AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				183C77D71D73E2F50047DD74 /* mask.png in Resources */,
+				180D1F451D6D9FDA008A72AA /* LaunchScreen.storyboard in Resources */,
+				180D1F421D6D9FDA008A72AA /* Assets.xcassets in Resources */,
+				180D1F401D6D9FDA008A72AA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		180D1F491D6D9FDA008A72AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		180D1F2E1D6D9FDA008A72AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1801AB611D70354100F3CE55 /* NSIndexSet+Convenience.m in Sources */,
+				1801AB251D70241000F3CE55 /* ASPhotoGridController.m in Sources */,
+				1801AB091D6ED0A800F3CE55 /* ASAlbumListController.m in Sources */,
+				180D1F3D1D6D9FDA008A72AA /* ViewController.m in Sources */,
+				180D1F3A1D6D9FDA008A72AA /* AppDelegate.m in Sources */,
+				180D1F371D6D9FDA008A72AA /* main.m in Sources */,
+				1801AB281D7025E700F3CE55 /* ASPhotoGridCell.m in Sources */,
+				1801AB621D70354100F3CE55 /* UICollectionView+Convenience.m in Sources */,
+				1801AB1C1D6EEF1800F3CE55 /* ASAlbumCustomCell.m in Sources */,
+				183C77DA1D73E86D0047DD74 /* ASImagePickerController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		180D1F471D6D9FDA008A72AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				180D1F501D6D9FDA008A72AA /* ASImagePickerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		180D1F4D1D6D9FDA008A72AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 180D1F311D6D9FDA008A72AA /* ASImagePickerDemo */;
+			targetProxy = 180D1F4C1D6D9FDA008A72AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		180D1F3E1D6D9FDA008A72AA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				180D1F3F1D6D9FDA008A72AA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		180D1F431D6D9FDA008A72AA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				180D1F441D6D9FDA008A72AA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		180D1F521D6D9FDA008A72AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		180D1F531D6D9FDA008A72AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		180D1F551D6D9FDA008A72AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ASImagePickerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.AlanSim.ASImagePickerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		180D1F561D6D9FDA008A72AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ASImagePickerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.AlanSim.ASImagePickerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		180D1F581D6D9FDA008A72AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ASImagePickerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.AlanSim.ASImagePickerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASImagePickerDemo.app/ASImagePickerDemo";
+			};
+			name = Debug;
+		};
+		180D1F591D6D9FDA008A72AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ASImagePickerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.AlanSim.ASImagePickerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASImagePickerDemo.app/ASImagePickerDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		180D1F2D1D6D9FDA008A72AA /* Build configuration list for PBXProject "ASImagePickerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				180D1F521D6D9FDA008A72AA /* Debug */,
+				180D1F531D6D9FDA008A72AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		180D1F541D6D9FDA008A72AA /* Build configuration list for PBXNativeTarget "ASImagePickerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				180D1F551D6D9FDA008A72AA /* Debug */,
+				180D1F561D6D9FDA008A72AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		180D1F571D6D9FDA008A72AA /* Build configuration list for PBXNativeTarget "ASImagePickerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				180D1F581D6D9FDA008A72AA /* Debug */,
+				180D1F591D6D9FDA008A72AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 180D1F2A1D6D9FDA008A72AA /* Project object */;
+}
