@@ -53,6 +53,33 @@
 }
 
 #pragma mark - public method
+#pragma mark -- class method
++ (BOOL)isSourceTypeAvailable:(ASImagePickerControllerSourceType)sourceType {
+    //TODO:SourceTypeAvailable
+    return YES;
+}
+
++ (NSArray<NSString *> *)availableMediaTypesForSourceType:(ASImagePickerControllerSourceType)sourceType {
+    //TODO:availableMediaTypes
+    return nil;
+}
+
++ (BOOL)isCameraDeviceAvailable:(ASImagePickerControllerCameraDevice)cameraDevice {
+    //TODO:CameraDeviceAvailable
+    return YES;
+}
+
++ (BOOL)isFlashAvailableForCameraDevice:(ASImagePickerControllerCameraDevice)cameraDevice {
+    //TODO:FlashAvailable
+    return YES;
+}
+
++ (NSArray<NSNumber *> *)availableCaptureModesForCameraDevice:(ASImagePickerControllerCameraDevice)cameraDevice {
+    //TODO:availableCaptureModes
+    return nil;
+}
+
+#pragma mark -- object method
 
 #pragma mark - private method(__method)
 
