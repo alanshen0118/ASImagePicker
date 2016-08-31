@@ -20,6 +20,7 @@
 		180D1F421D6D9FDA008A72AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 180D1F411D6D9FDA008A72AA /* Assets.xcassets */; };
 		180D1F451D6D9FDA008A72AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D1F431D6D9FDA008A72AA /* LaunchScreen.storyboard */; };
 		180D1F501D6D9FDA008A72AA /* ASImagePickerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D1F4F1D6D9FDA008A72AA /* ASImagePickerDemoTests.m */; };
+		1829B3E11D76BB4B00345041 /* PHFetchResult+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829B3E01D76BB4B00345041 /* PHFetchResult+Convenience.m */; };
 		183C77D71D73E2F50047DD74 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 183C77D61D73E2F50047DD74 /* mask.png */; };
 		183C77DA1D73E86D0047DD74 /* ASImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C77D91D73E86D0047DD74 /* ASImagePickerController.m */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,8 @@
 		180D1F4B1D6D9FDA008A72AA /* ASImagePickerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASImagePickerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		180D1F4F1D6D9FDA008A72AA /* ASImagePickerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASImagePickerDemoTests.m; sourceTree = "<group>"; };
 		180D1F511D6D9FDA008A72AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1829B3DF1D76BB4B00345041 /* PHFetchResult+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHFetchResult+Convenience.h"; sourceTree = "<group>"; };
+		1829B3E01D76BB4B00345041 /* PHFetchResult+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHFetchResult+Convenience.m"; sourceTree = "<group>"; };
 		183C77D61D73E2F50047DD74 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		183C77D81D73E86D0047DD74 /* ASImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASImagePickerController.h; sourceTree = "<group>"; };
 		183C77D91D73E86D0047DD74 /* ASImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASImagePickerController.m; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				1801AB5E1D70354000F3CE55 /* NSIndexSet+Convenience.m */,
 				1801AB5F1D70354000F3CE55 /* UICollectionView+Convenience.h */,
 				1801AB601D70354000F3CE55 /* UICollectionView+Convenience.m */,
+				1829B3DF1D76BB4B00345041 /* PHFetchResult+Convenience.h */,
+				1829B3E01D76BB4B00345041 /* PHFetchResult+Convenience.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				1801AB621D70354100F3CE55 /* UICollectionView+Convenience.m in Sources */,
 				1801AB1C1D6EEF1800F3CE55 /* ASAlbumCustomCell.m in Sources */,
 				183C77DA1D73E86D0047DD74 /* ASImagePickerController.m in Sources */,
+				1829B3E11D76BB4B00345041 /* PHFetchResult+Convenience.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

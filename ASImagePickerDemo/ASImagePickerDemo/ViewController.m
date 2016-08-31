@@ -23,7 +23,8 @@
 
 - (IBAction)pickImages:(id)sender {
     __block CGFloat currentY = 0.f;
-    [self presentViewController:[[ASImagePickerController alloc] initWithCompletion:^(NSArray<id> *datas, NSError *error) {
+    ASImagePickerController *imagePicker = [[ASImagePickerController alloc] init];
+    imagePicker.completionBlock =  ^(NSArray<id> *datas, NSError *error) {
         for (UIImageView *imageView in self.scrollView.subviews) {
             [imageView removeFromSuperview];
         }
@@ -35,7 +36,11 @@
             self.scrollView.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), currentY);
             [self.scrollView addSubview:imageView];
         }
-    }] animated:YES completion:nil];
+    };
+    imagePicker.access = ASImagePickerControllerAccessAlbums;
+    imagePicker.showsEmptyAlbum = NO;
+    imagePicker.showsAlbumCategory = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
