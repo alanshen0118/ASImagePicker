@@ -301,4 +301,8 @@ static const float ListRowHeight = 89.f;
     [self setupData];
 }
 
+- (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
+    _completionBlock = completionBlock;
+}
+
 @end

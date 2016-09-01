@@ -195,6 +195,8 @@
 
 - (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
     _completionBlock = completionBlock;
+    self.albumListController.completionBlock = completionBlock;
+    self.photoGridController.completionBlock = completionBlock;
 }
 
 - (ASAlbumListController *)albumListController {

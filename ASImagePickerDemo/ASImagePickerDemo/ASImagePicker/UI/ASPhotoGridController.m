@@ -300,4 +300,8 @@ static CGSize AssetGridThumbnailSize;
     return _collectionView;
 }
 
+- (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
+    _completionBlock = completionBlock;
+}
+
 @end
