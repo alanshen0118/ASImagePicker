@@ -80,7 +80,7 @@ Highly imitate UIImagePickerController.Support for multiSelect!(Use Photos Frame
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/alanshen0118/ASImagePicker.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/alanshen0118/ASImagePicker.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
