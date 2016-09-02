@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ASImagePicker"
-  s.version      = "1.0.0"
+  s.version      = "0.0.1"
   s.summary      = "Highly imitate UIImagePickerController.More Function"
 
   # This description is used to generate tags and improve search results.
@@ -40,7 +40,7 @@ Highly imitate UIImagePickerController.Support for multiSelect!(Use Photos Frame
   #
 
   #s.license      = "MIT"
-  s.license      = { :type => "MIT", :file => "LICENSE.md" }
+  s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
