@@ -1,5 +1,5 @@
 # ASImagePicker
-Highly imitate UIImagePickerController.Support for multiSelect!(Use Photos Framework)
+Highly imitate UIImagePickerController.Support for multiSelect, categories!(Use Photos Framework)
 
 ## Installation
 ```
@@ -29,12 +29,16 @@ imagePicker.imageLimit = 3;
 ```
 
 ### Completion
+```
 imagePicker.completionBlock =  ^(NSArray<id> *datas, NSError *error) {
     //datas represent the selected images;    
 };
+```
 
 ### Modal Show
+```
 [self presentViewController:imagePicker animated:YES completion:nil];
+```
 
 ## License
 ASImagePicker is released under the MIT license. See LICENSE for details.
