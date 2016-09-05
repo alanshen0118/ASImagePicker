@@ -38,8 +38,13 @@
         }
     };
     imagePicker.access = ASImagePickerControllerAccessAlbums;
-    imagePicker.showsEmptyAlbum = NO;
+    imagePicker.showsEmptyAlbum = YES;
     imagePicker.showsAlbumCategory = YES;
+    imagePicker.showsAlbumNumber = YES;
+    imagePicker.showsAlbumThumbImage = YES;
+    imagePicker.allowsMultiSelected = YES;
+    imagePicker.rowLimit = 4;
+    imagePicker.imageLimit = 3;
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 

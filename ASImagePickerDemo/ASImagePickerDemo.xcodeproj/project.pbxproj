@@ -23,6 +23,7 @@
 		1829B3E11D76BB4B00345041 /* PHFetchResult+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829B3E01D76BB4B00345041 /* PHFetchResult+Convenience.m */; };
 		183C77D71D73E2F50047DD74 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 183C77D61D73E2F50047DD74 /* mask.png */; };
 		183C77DA1D73E86D0047DD74 /* ASImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C77D91D73E86D0047DD74 /* ASImagePickerController.m */; };
+		18C17BC81D7D15CD00720889 /* ASPhotoGridSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C17BC71D7D15CD00720889 /* ASPhotoGridSectionHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		183C77D61D73E2F50047DD74 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		183C77D81D73E86D0047DD74 /* ASImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASImagePickerController.h; sourceTree = "<group>"; };
 		183C77D91D73E86D0047DD74 /* ASImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASImagePickerController.m; sourceTree = "<group>"; };
+		18C17BC61D7D15CD00720889 /* ASPhotoGridSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGridSectionHeaderView.h; sourceTree = "<group>"; };
+		18C17BC71D7D15CD00720889 /* ASPhotoGridSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGridSectionHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 		180D1F5C1D6DA20A008A72AA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				18C17BC61D7D15CD00720889 /* ASPhotoGridSectionHeaderView.h */,
+				18C17BC71D7D15CD00720889 /* ASPhotoGridSectionHeaderView.m */,
 				1801AB071D6ED0A800F3CE55 /* ASAlbumListController.h */,
 				1801AB081D6ED0A800F3CE55 /* ASAlbumListController.m */,
 				1801AB1A1D6EEF1800F3CE55 /* ASAlbumCustomCell.h */,
@@ -289,6 +294,7 @@
 			files = (
 				1801AB611D70354100F3CE55 /* NSIndexSet+Convenience.m in Sources */,
 				1801AB251D70241000F3CE55 /* ASPhotoGridController.m in Sources */,
+				18C17BC81D7D15CD00720889 /* ASPhotoGridSectionHeaderView.m in Sources */,
 				1801AB091D6ED0A800F3CE55 /* ASAlbumListController.m in Sources */,
 				180D1F3D1D6D9FDA008A72AA /* ViewController.m in Sources */,
 				180D1F3A1D6D9FDA008A72AA /* AppDelegate.m in Sources */,

@@ -10,6 +10,7 @@
 #import "NSIndexSet+Convenience.h"
 #import "UICollectionView+Convenience.h"
 #import "ASPhotoGridCell.h"
+#import "ASPhotoGridSectionHeaderView.h"
 
 @import PhotosUI;
 
@@ -23,9 +24,19 @@
 
 @implementation ASPhotoGridController
 static NSString * const CellReuseIdentifier = @"Cell";
+static NSString * const SectionHeaderReuseIdentifier = @"SectionHeader";
 static CGSize AssetGridThumbnailSize;
 
 #pragma mark - life cycle
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.collectionView.allowsMultipleSelection = YES;
+        if (self.rowLimit == 0) self.rowLimit = 4;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -64,6 +75,21 @@ static CGSize AssetGridThumbnailSize;
 }
 
 #pragma mark - system delegate
+- (id)copyWithZone:(NSZone *)zone {
+    
+    ASPhotoGridController *photoGridController = [[ASPhotoGridController alloc] init];
+    photoGridController.allowsMultiSelected = self.allowsMultiSelected;
+    photoGridController.allowsMoments = self.allowsMoments;
+    photoGridController.allowsMomentsAnimation = self.allowsMomentsAnimation;
+    photoGridController.allowsEditing = self.allowsEditing;
+    photoGridController.allowsImageEditing = self.allowsImageEditing;
+    photoGridController.showsLivePhotoBadge = self.showsLivePhotoBadge;
+    photoGridController.imageLimit = self.imageLimit;
+    photoGridController.rowLimit = self.rowLimit;
+    photoGridController.completionBlock = self.completionBlock;
+    return photoGridController;
+
+}
 #pragma mark -- PHPhotoLibraryChangeObserver
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
@@ -119,6 +145,7 @@ static CGSize AssetGridThumbnailSize;
     
     ASPhotoGridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellReuseIdentifier forIndexPath:indexPath];
     cell.representedAssetIdentifier = asset.localIdentifier;
+    cell.allowsMultiSelected = self.allowsMultiSelected;
     
     // 如果是Live图片增加一个标记
     if (asset.mediaSubtypes & PHAssetMediaSubtypePhotoLive) {
@@ -141,12 +168,38 @@ static CGSize AssetGridThumbnailSize;
     return cell;
 }
 
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    return 10;
+//}
+
 #pragma mark -- UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%zi", collectionView.indexPathsForSelectedItems.count);
-    return YES;
+    return self.allowsMultiSelected && self.imageLimit > 0 ? [collectionView indexPathsForSelectedItems].count < self.imageLimit : YES;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.allowsMultiSelected) return;
+    if (self.allowsImageEditing) {
+        
+    } else {
+        PHAsset *asset = self.assetsFetchResults[indexPath.item];
+        [self.imageManager requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            if (self.completionBlock && imageData) {
+                self.completionBlock(@[imageData], nil);
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
+}
+
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+//    ASPhotoGridSectionHeaderView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier forIndexPath:indexPath];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.dateFormat = @"yyyy年MM月dd日";
+//    reusableView.textLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+//    return reusableView;
+//}
 
 #pragma mark -- UIScrollViewDelegate
 
@@ -288,16 +341,62 @@ static CGSize AssetGridThumbnailSize;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 1;
         layout.minimumLineSpacing = 1;
-        CGFloat itemWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - 3) / 4;
+        layout.sectionHeadersPinToVisibleBounds = YES;
+//        layout.headerReferenceSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 44);
+        CGFloat row = self.rowLimit <= 0 ? 4 : self.rowLimit;
+        CGFloat itemWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - row + 1) / row;
         layout.itemSize = CGSizeMake(itemWidth, itemWidth);
         _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[ASPhotoGridCell class] forCellWithReuseIdentifier:CellReuseIdentifier];
-        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.allowsMultipleSelection = self.allowsMultiSelected;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+//        [_collectionView registerClass:[ASPhotoGridSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier];
     }
     return _collectionView;
+}
+
+- (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
+    _completionBlock = completionBlock;
+}
+
+- (void)setAllowsMultiSelected:(BOOL)allowsMultiSelected {
+    _allowsMultiSelected = allowsMultiSelected;
+    self.collectionView.allowsMultipleSelection = allowsMultiSelected;
+    [self.collectionView reloadData];
+}
+
+- (void)setAllowsMoments:(BOOL)allowsMoments {
+    _allowsMoments = allowsMoments;
+}
+
+- (void)setAllowsMomentsAnimation:(BOOL)allowsMomentsAnimation {
+    _allowsMomentsAnimation = allowsMomentsAnimation;
+}
+
+- (void)setEditing:(BOOL)editing {
+    _allowsEditing = editing;
+}
+
+-(void)setAllowsImageEditing:(BOOL)allowsImageEditing {
+    _allowsImageEditing = allowsImageEditing;
+}
+
+- (void)setShowsLivePhotoBadge:(BOOL)showsLivePhotoBadge {
+    _showsLivePhotoBadge = showsLivePhotoBadge;
+}
+
+- (void)setImageLimit:(NSInteger)imageLimit {
+    _imageLimit = imageLimit;
+}
+
+- (void)setRowLimit:(NSInteger)rowLimit {
+    _rowLimit = rowLimit;
+    CGFloat row = rowLimit <= 0 ? 4 : rowLimit;
+    CGFloat itemWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - row + 1) / row;
+    ((UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout).itemSize = CGSizeMake(itemWidth, itemWidth);
+    [self.collectionView reloadData];
 }
 
 @end

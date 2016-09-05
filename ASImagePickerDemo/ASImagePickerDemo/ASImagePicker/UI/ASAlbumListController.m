@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) NSArray *sectionLocalizedTitles;
 
+@property (nonatomic, strong) ASPhotoGridController *photoGridController;
+
 @end
 
 @implementation ASAlbumListController
@@ -32,6 +34,24 @@ static const float ListRowHeight = 89.f;
 
 #pragma mark - life cycle
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self p__initializeProperties];
+    }
+    return self;
+}
+
+- (instancetype)initWithPhotoGridController:(ASPhotoGridController *)photoGridController {
+    self = [super init];
+    if (self) {
+        self.photoGridController = photoGridController;
+        [self p__initializeProperties];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,6 +59,7 @@ static const float ListRowHeight = 89.f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self customPageViews];
     [self setupData];
     //注册观察相册变化的观察者
@@ -67,6 +88,11 @@ static const float ListRowHeight = 89.f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ASPhotoGridController *gridViewController = [[ASPhotoGridController alloc] init];
+    
+    if (self.photoGridController) {
+        gridViewController = [self.photoGridController copy];
+    }
+    
     gridViewController.completionBlock = self.completionBlock;
     PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
     
@@ -83,7 +109,7 @@ static const float ListRowHeight = 89.f;
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:self.fetchPhotosOptions];
         
         gridViewController.assetsFetchResults = assetsFetchResult;
-        gridViewController.assetCollection = assetCollection;
+//        gridViewController.assetCollection = assetCollection;
     }
     
     [self.navigationController pushViewController:gridViewController animated:YES];
@@ -100,17 +126,32 @@ static const float ListRowHeight = 89.f;
         cell.textLabel.text = NSLocalizedString(@"All Photos", @"");
         
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:CollectionCellReuseIdentifier forIndexPath:indexPath];
         if (!self.sectionResults || self.sectionResults.count <= indexPath.section) return nil;
         NSArray *collections = self.sectionResults[indexPath.section];
         if (!collections || collections.count <= indexPath.row) return nil;
         PHCollection *collection = collections[indexPath.row];
+        cell = [tableView dequeueReusableCellWithIdentifier:collection.localIdentifier];
+        if (!cell) {
+            cell = [[ASAlbumCustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collection.localIdentifier];
+        }
         if ([collection isKindOfClass:[PHAssetCollection class]]) {
             fetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:self.fetchPhotosOptions];
             cell.textLabel.text = collection.localizedTitle;
         }
-        //相册名
-        
+        //相册名   
+    }
+    
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (self.showsAlbumNumber) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%zi", fetchResult.count];
+    }
+    
+    cell.showsThumbImage = self.showsAlbumThumbImage;
+    
+    if (!self.showsAlbumThumbImage) {
+        return cell;
     }
     __block NSInteger fetchImageIndex = 0;
     NSMutableArray *thumbsImages = [NSMutableArray arrayWithCapacity:3];
@@ -120,12 +161,10 @@ static const float ListRowHeight = 89.f;
             if (result) [thumbsImages addObject:result];
             if (--fetchImageIndex == 0) {
                 cell.thumbImages = thumbsImages;
-                [cell layoutSubviews];
             }
         }];
     }
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%zi", fetchResult.count];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -193,23 +232,50 @@ static const float ListRowHeight = 89.f;
 #pragma mark - public method
 
 #pragma mark - private method(p__method)
+- (void)p__initializeProperties {
+    self.allowsMoments = YES;
+    self.showsAlbumCategory = YES;
+    self.showsAlbumNumber = YES;
+    self.showsAlbumThumbImage = YES;
+}
 
 #pragma mark - setup data
 - (void)setupData {
+    
     //reset
     self.sectionResults = nil;
     self.sectionLocalizedTitles = nil;
     self.sectionFetchResults = nil;
     
+    NSMutableArray *sectionsLocalizedTitles = [NSMutableArray arrayWithObject:@""];
+    
     //获取所有图片资源
     PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:self.fetchPhotosOptions];
     if (allPhotos) [self.sectionResults addObject:allPhotos];
+    
+    //获取时刻图册
+//    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+//    options.sortDescriptors  = @[[NSSortDescriptor sortDescriptorWithKey:@"endDate"
+//                                                               ascending:YES]];
+//
+//    PHFetchResult * moments = [PHAssetCollection fetchMomentsWithOptions:nil];
+//    for (PHAssetCollection * moment in moments) {
+//        PHFetchResult * assetsFetchResults = [PHAsset fetchAssetsInAssetCollection:moment options:nil];
+//        for (PHAsset * asset in assetsFetchResults) {
+//            
+//            //Do something with asset, for example add them to array
+//        }
+//    }
+//    
+//    [self.sectionResults addObject:moments];
+//    [sectionsLocalizedTitles addObject:NSLocalizedString(@"Moments", @"")];
+    
     //获取智能相册
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:self.fetchAlbumsOptions];
     
     //获取用户自定义相册
     PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:self.fetchAlbumsOptions];
-    NSMutableArray *sectionsLocalizedTitles = [NSMutableArray arrayWithObject:@""];
+    
     [smartAlbums as_trimAlbumsWithFetchOption:self.fetchAlbumsOptions showsEmpty:self.showsEmptyAlbum completion:^(NSArray *results) {
         if (results) {
             [self.sectionResults addObject:results];
@@ -225,6 +291,7 @@ static const float ListRowHeight = 89.f;
             // Store the PHFetchResult objects and localized titles for each section.
             self.sectionLocalizedTitles = sectionsLocalizedTitles;
             self.sectionFetchResults = @[allPhotos, smartAlbums, topLevelUserCollections];
+//            self.sectionFetchResults = @[allPhotos, momentPhotos, smartAlbums, topLevelUserCollections];
         }];
     }];
 }
@@ -238,7 +305,6 @@ static const float ListRowHeight = 89.f;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[ASAlbumCustomCell class] forCellReuseIdentifier:AllPhotosReuseIdentifier];
-        [_tableView registerClass:[ASAlbumCustomCell class] forCellReuseIdentifier:CollectionCellReuseIdentifier];
     }
     return _tableView;
 }
@@ -290,10 +356,12 @@ static const float ListRowHeight = 89.f;
 
 - (void)setShowsAlbumNumber:(BOOL)showsAlbumNumber {
     _showsAlbumNumber = showsAlbumNumber;
+    [self.tableView reloadData];
 }
 
 - (void)setShowsAlbumThumbImage:(BOOL)showsAlbumThumbImage {
     _showsAlbumThumbImage = showsAlbumThumbImage;
+    [self.tableView reloadData];
 }
 
 - (void)setShowsAlbumCategory:(BOOL)showsAlbumCategory {

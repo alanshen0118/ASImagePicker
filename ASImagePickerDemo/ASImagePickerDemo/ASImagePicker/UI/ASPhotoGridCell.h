@@ -14,4 +14,6 @@
 @property (nonatomic, strong) UIImage *livePhotoBadgeImage;
 @property (nonatomic, copy) NSString *representedAssetIdentifier;
 
+@property (nonatomic) BOOL allowsMultiSelected;
+
 @end

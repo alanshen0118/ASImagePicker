@@ -29,18 +29,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        CGSize itemSize = CGSizeMake(65.f, 65.f);
-        
-        UIGraphicsBeginImageContext(itemSize);
-        
-        CGRect imageRect = CGRectMake(0.f, 0.f, itemSize.width, itemSize.height);
-        
-        [self.imageView.image drawInRect:imageRect];
-        
-        self.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        
-        UIGraphicsEndImageContext();
+        [self customPageViews];
     }
     return self;
 }
@@ -56,20 +45,36 @@
 
 #pragma mark - public method
 - (void)customPageViews {
+    if (!self.showsThumbImage) {
+        return;
+    }
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    CGSize itemSize = CGSizeMake(65.f, 65.f);
+    
+    UIGraphicsBeginImageContext(itemSize);
+    
+    CGRect imageRect = CGRectMake(0.f, 0.f, itemSize.width, itemSize.height);
+    
+    [self.imageView.image drawInRect:imageRect];
+    
+    self.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
     for (int i = 0; i < self.thumbImages.count; i++) {
         switch (i) {
             case 0:{
-                self.frontImageView.image = self.placeholderImage;
+//                self.frontImageView.image = self.placeholderImage;
                 self.frontImageView.image = self.thumbImages[i];
                 break;
             }
             case 1:{
-                self.middleImageView.image = self.placeholderImage;
+//                self.middleImageView.image = self.placeholderImage;
                 self.middleImageView.image = self.thumbImages[i];
                 break;
             }
             case 2:{
-                self.lastImageView.image = self.placeholderImage;
+//                self.lastImageView.image = self.placeholderImage;
                 self.lastImageView.image = self.thumbImages[i];
                 break;
             }
@@ -77,6 +82,7 @@
                 break;
         }
     }
+    
 }
 
 #pragma mark - lazy load
@@ -124,6 +130,11 @@
     if (!_albumNameLabel) {
     }
     return _albumNameLabel;
+}
+
+- (void)setShowsThumbImage:(BOOL)showsThumbImage {
+    _showsThumbImage = showsThumbImage;
+    [self customPageViews];
 }
 
 @end

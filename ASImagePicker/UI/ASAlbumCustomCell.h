@@ -14,4 +14,10 @@
 
 @property (strong, nonatomic) NSArray *thumbImages;
 
+//@property (strong, nonatomic) NSString *localIdentifier;
+
+@property (nonatomic) BOOL showsThumbImage;
+
+- (void)customPageViews;
+
 @end

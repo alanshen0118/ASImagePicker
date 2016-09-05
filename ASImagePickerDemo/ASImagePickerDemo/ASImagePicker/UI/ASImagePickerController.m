@@ -57,6 +57,7 @@
 
 #pragma mark - public method
 #pragma mark -- class method
+/*
 + (BOOL)isSourceTypeAvailable:(ASImagePickerControllerSourceType)sourceType {
     //TODO:SourceTypeAvailable
     return YES;
@@ -81,6 +82,7 @@
     //TODO:availableCaptureModes
     return nil;
 }
+ */
 
 #pragma mark -- object method
 
@@ -120,6 +122,7 @@
     }
 }
 
+/*
 - (void)setSourceType:(ASImagePickerControllerSourceType)sourceType {
     _sourceType = sourceType;
 }
@@ -140,10 +143,14 @@
     _videoQuality = videoQuality;
 }
 
+*/
+
 - (void)setAllowsMultiSelected:(BOOL)allowsMultiSelected {
     _allowsMultiSelected = allowsMultiSelected;
+    self.photoGridController.allowsMultiSelected = allowsMultiSelected;
 }
 
+/*
 - (void)setAllowsMoments:(BOOL)allowsMoments {
     _allowsMoments = allowsMoments;
     self.albumListController.allowsMoments = allowsMoments;
@@ -151,15 +158,19 @@
 
 - (void)setAllowsMomentsAnimation:(BOOL)allowsMomentsAnimation {
     _allowsMomentsAnimation = allowsMomentsAnimation;
+    self.photoGridController.allowsMomentsAnimation = allowsMomentsAnimation;
 }
 
 - (void)setAllowsEditing:(BOOL)allowsEditing {
     _allowsEditing = allowsEditing;
+    self.photoGridController.allowsEditing = allowsEditing;
 }
 
 - (void)setAllowsImageEditing:(BOOL)allowsImageEditing {
     _allowsImageEditing = allowsImageEditing;
+    self.photoGridController.allowsImageEditing = allowsImageEditing;
 }
+*/
 
 - (void)setShowsEmptyAlbum:(BOOL)showsEmptyAlbum {
     _showsEmptyAlbum = showsEmptyAlbum;
@@ -181,16 +192,21 @@
     self.albumListController.showsAlbumCategory = showsAlbumCategory;
 }
 
+/*
 - (void)setShowsLivePhotoBadge:(BOOL)showsLivePhotoBadge {
     _showsLivePhotoBadge = showsLivePhotoBadge;
+    self.photoGridController.showsLivePhotoBadge = showsLivePhotoBadge;
 }
+ */
 
 - (void)setImageLimit:(NSInteger)imageLimit {
     _imageLimit = imageLimit;
+    self.photoGridController.imageLimit = imageLimit;
 }
 
 - (void)setRowLimit:(NSInteger)rowLimit {
     _rowLimit = rowLimit;
+    self.photoGridController.rowLimit = rowLimit;
 }
 
 - (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
@@ -201,7 +217,7 @@
 
 - (ASAlbumListController *)albumListController {
     if (!_albumListController) {
-        _albumListController = [[ASAlbumListController alloc] init];
+        _albumListController = [[ASAlbumListController alloc] initWithPhotoGridController:self.photoGridController];
     }
     return _albumListController;
 }

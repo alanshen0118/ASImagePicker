@@ -26,6 +26,7 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
+    if (!self.allowsMultiSelected) return;
     if (selected) {
         [self.contentView.layer addSublayer:self.maskLayer];
     } else {

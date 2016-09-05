@@ -11,13 +11,21 @@
 
 @interface ASAlbumListController : UIViewController
 
+- (nonnull instancetype)initWithPhotoGridController:(nullable ASPhotoGridController *)photoGridController;
+
 @property (nonatomic, strong, nullable) ASImagePickerCompletionBlock completionBlock;
 
 @property (nonatomic, strong, nullable) PHFetchOptions *fetchAlbumsOptions;///相册抓取配置，包括排序、筛选
 
 @property (nonatomic, strong, nullable) PHFetchOptions *fetchPhotosOptions;///图片抓取配置，包括排序、筛选
 
+@property (nonatomic) BOOL allowsAllPhotos;//default value is YES.
+
 @property (nonatomic) BOOL allowsMoments;//default value is YES.
+
+@property (nonatomic) BOOL allowsSmartAlbums;//default value is YES.
+
+@property (nonatomic) BOOL allowsUserAlbums;//default value is YES.
 
 @property (nonatomic) BOOL showsEmptyAlbum;//default value is NO.
 

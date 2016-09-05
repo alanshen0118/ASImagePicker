@@ -11,6 +11,7 @@
 
 @protocol ASImagePickerControllerDelegate;
 
+/*
 typedef NS_ENUM(NSInteger, ASImagePickerControllerSourceType) {
     ASImagePickerControllerSourceTypePhotoLibrary,//图库
     ASImagePickerControllerSourceTypeCamera,//相机
@@ -36,12 +37,15 @@ typedef NS_ENUM(NSInteger, ASImagePickerControllerCameraCaptureMode) {
     ASImagePickerControllerCameraCaptureModeVideo
 };
 
+*/
+
 typedef NS_ENUM(NSInteger, ASImagePickerControllerAccess) {
     ASImagePickerControllerAccessAlbums,//入口为相册分类界面
     ASImagePickerControllerAccessPhotosWithoutAlbums,//入口为图片选择界面，不包含相册分类
     ASImagePickerControllerAccessPhotosWithAlbums//入口为图片选择界面，返回可回相册分类界面
 };
 
+/*
 typedef NS_ENUM(NSInteger, ASImagePickerControllerCameraFlashMode) {
     ASImagePickerControllerCameraFlashModeOff  = -1,
     ASImagePickerControllerCameraFlashModeAuto = 0,
@@ -61,14 +65,16 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerMediaMetadata;  /
 //NSDictionary* metadata = (NSDictionary *)CGImageSourceCopyPropertiesAtIndex(source,0,NULL);
 UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAILABLE_IOS(9_1);  // a PHLivePhoto
 
-@interface ASImagePickerController : UINavigationController
+*/
 
+@interface ASImagePickerController : UINavigationController
+/*
 + (BOOL)isSourceTypeAvailable:(ASImagePickerControllerSourceType)sourceType;                 // returns YES if source is available (i.e. camera present)
 + (nullable NSArray<NSString *> *)availableMediaTypesForSourceType:(ASImagePickerControllerSourceType)sourceType; // returns array of available media types (i.e. kUTTypeImage)
 + (BOOL)isCameraDeviceAvailable:(ASImagePickerControllerCameraDevice)cameraDevice; // returns YES if camera device is available
 + (BOOL)isFlashAvailableForCameraDevice:(ASImagePickerControllerCameraDevice)cameraDevice; // returns YES if camera device supports flash and torch.
 + (nullable NSArray<NSNumber *> *)availableCaptureModesForCameraDevice:(ASImagePickerControllerCameraDevice)cameraDevice; // returns array of NSNumbers (UIImagePickerControllerCameraCaptureMode)
-
+*/
 
 //- (nonnull instancetype)initWithCompletion:(nullable ASImagePickerCompletionBlock)completion;
 
@@ -80,6 +86,8 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
  */
 @property (nonatomic) ASImagePickerControllerAccess access;///入口界面
 
+/*
+
 @property (nonatomic) ASImagePickerControllerSourceType sourceType;///资源类型
 
 @property (nonatomic) ASImagePickerControllerCameraCaptureMode cameraCaptureMode;///相机采集模式
@@ -89,6 +97,8 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 @property (nonatomic) ASImagePickerControllerCameraFlashMode cameraFlashMode;///相机闪光
 
 @property (nonatomic) ASImagePickerControllerQualityType videoQuality;///视频质量
+ 
+ */
 
 //Supported Keys see this link https://developer.apple.com/reference/photos/phfetchoptions
 @property (nonatomic, strong, nullable) PHFetchOptions *fetchAlbumsOptions;///相册抓取配置，包括排序、筛选
@@ -97,13 +107,13 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 
 @property (nonatomic) BOOL allowsMultiSelected;//default value is NO.
 
-@property (nonatomic) BOOL allowsMoments;//default value is YES.
+//@property (nonatomic) BOOL allowsMoments;//default value is YES.
 
-@property (nonatomic) BOOL allowsMomentsAnimation;//default value is NO.
+//@property (nonatomic) BOOL allowsMomentsAnimation;//default value is NO.
 
-@property (nonatomic) BOOL allowsEditing;//default value is NO.
+//@property (nonatomic) BOOL allowsEditing;//default value is NO.
 
-@property (nonatomic) BOOL allowsImageEditing;//default value is NO.
+//@property (nonatomic) BOOL allowsImageEditing;//default value is NO.
 
 @property (nonatomic) BOOL showsEmptyAlbum;//default value is NO.
 
@@ -115,7 +125,7 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 
 @property (nonatomic) BOOL showsAlbumCategory;//default value is YES.
 
-@property (nonatomic) BOOL showsLivePhotoBadge;//default value is YES.
+//@property (nonatomic) BOOL showsLivePhotoBadge;//default value is YES.
 
 @property (nonatomic) NSInteger imageLimit;//default 0 represents no limit 选择图片数量上限
 
@@ -123,6 +133,7 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 
 @end
 
+/*
 @class ASImagePickerController;
 @protocol ASImagePickerControllerDelegate<NSObject>
 @optional
@@ -134,3 +145,4 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 - (void)imagePickerControllerDidCancel:(nullable ASImagePickerController *)picker;
 
 @end
+*/
