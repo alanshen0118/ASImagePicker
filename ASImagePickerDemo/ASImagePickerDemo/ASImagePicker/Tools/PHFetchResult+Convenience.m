@@ -7,6 +7,7 @@
 //
 
 #import "PHFetchResult+Convenience.h"
+@import Photos;
 
 @implementation PHFetchResult (Convenience)
 
@@ -35,7 +36,76 @@
             completion(results);
             
         }
+        
     }];
+}
+
+- (NSMutableArray<ASMoment *> *)as_filterAssetsByMomentGroupType:(ASMomentGroupType)momentGroupType ascending:(BOOL)ascending {
+    
+    if (!self.firstObject) {
+        return nil;
+    }
+    
+    PHFetchResult *result = nil;
+    
+    if ([self.firstObject isKindOfClass:[PHAssetCollection class]]) {
+        PHFetchOptions *options = [[PHFetchOptions alloc] init];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:ascending]];
+        result = [PHAsset fetchAssetsInAssetCollection:self.firstObject options:options];
+    }
+    
+    if ([self.firstObject isKindOfClass:[PHAsset class]]) {
+        result = self;
+    }
+    
+    return [self sortMomentWithMomentGroupType:momentGroupType assets:result];
+    
+}
+
+- (NSMutableArray<ASMoment *> *)sortMomentWithMomentGroupType:(ASMomentGroupType)momentGroupType assets:(PHFetchResult *)assets {
+    
+    ASMoment *lastGroup = nil;
+    
+    NSMutableArray *groups = [NSMutableArray array];
+    
+    
+    for (PHAsset *asset in assets) {
+        
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay   |
+                                        NSCalendarUnitMonth |
+                                        NSCalendarUnitYear
+                                                                       fromDate:[asset creationDate]];
+        NSUInteger month = [components month];
+        NSUInteger year  = [components year];
+        NSUInteger day   = [components day];
+        
+        switch (momentGroupType) {
+            case ASMomentGroupTypeYear:
+                
+                if (lastGroup && lastGroup.dateComponents.year == year) break;
+                
+            case ASMomentGroupTypeMonth:
+                
+                if (lastGroup && lastGroup.dateComponents.year == year && lastGroup.dateComponents.month == month) break;
+                
+            case ASMomentGroupTypeDay:
+                
+                if (lastGroup && lastGroup.dateComponents.year == year && lastGroup.dateComponents.month == month &&lastGroup.dateComponents.day == day) break;
+                
+            default:
+                
+                lastGroup = [ASMoment new];
+                lastGroup.dateComponents = components;
+                [groups addObject:lastGroup];
+                break;
+                
+        }
+        
+        [lastGroup.assets addObject:asset];
+        
+    }
+    return groups;
+    
 }
 
 @end

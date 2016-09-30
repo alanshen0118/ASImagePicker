@@ -18,6 +18,4 @@
 
 @property (nonatomic) BOOL showsThumbImage;
 
-- (void)customPageViews;
-
 @end

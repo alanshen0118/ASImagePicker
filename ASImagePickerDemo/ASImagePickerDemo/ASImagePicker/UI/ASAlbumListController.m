@@ -61,7 +61,48 @@ static const float ListRowHeight = 89.f;
     [super viewWillAppear:animated];
     
     [self customPageViews];
+    if ([PHPhotoLibrary authorizationStatus] != PHAuthorizationStatusAuthorized) {
+        
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            
+            switch (status) {
+                case PHAuthorizationStatusNotDetermined:
+                    NSLog(@"PHAuthorizationStatusNotDetermined");
+                    break;
+                case PHAuthorizationStatusRestricted:
+                    NSLog(@"PHAuthorizationStatusRestricted");
+                    break;
+                case PHAuthorizationStatusDenied:{
+                    NSLog(@"PHAuthorizationStatusDenied");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"请在设备的\"设置-隐私-相机\"中允许访问相机。" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }];
+                        [alertController addAction:action];
+                        [self.navigationController presentViewController:alertController animated:YES completion:nil];
+                    });
+                    
+                    break;
+                }
+                case PHAuthorizationStatusAuthorized:{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self setupData];
+                        [self.tableView reloadData];
+                        NSLog(@"PHAuthorizationStatusAuthorized");
+                    });
+                    
+                    break;
+                }
+                default:
+                    break;
+            }
+        }];
+    } else {
+
     [self setupData];
+    }
+    
     //注册观察相册变化的观察者
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
@@ -253,23 +294,6 @@ static const float ListRowHeight = 89.f;
     PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:self.fetchPhotosOptions];
     if (allPhotos) [self.sectionResults addObject:allPhotos];
     
-    //获取时刻图册
-//    PHFetchOptions *options = [[PHFetchOptions alloc] init];
-//    options.sortDescriptors  = @[[NSSortDescriptor sortDescriptorWithKey:@"endDate"
-//                                                               ascending:YES]];
-//
-//    PHFetchResult * moments = [PHAssetCollection fetchMomentsWithOptions:nil];
-//    for (PHAssetCollection * moment in moments) {
-//        PHFetchResult * assetsFetchResults = [PHAsset fetchAssetsInAssetCollection:moment options:nil];
-//        for (PHAsset * asset in assetsFetchResults) {
-//            
-//            //Do something with asset, for example add them to array
-//        }
-//    }
-//    
-//    [self.sectionResults addObject:moments];
-//    [sectionsLocalizedTitles addObject:NSLocalizedString(@"Moments", @"")];
-    
     //获取智能相册
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:self.fetchAlbumsOptions];
     
@@ -309,26 +333,26 @@ static const float ListRowHeight = 89.f;
     return _tableView;
 }
 
-- (PHFetchOptions *)getFetchAlbumsOptions {
-    if (!_fetchAlbumsOptions) {
-        
-        _fetchAlbumsOptions = [[PHFetchOptions alloc] init];
-        //图片配置设置排序规则
-        _fetchAlbumsOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-        
-    }
-    return _fetchAlbumsOptions;
-}
-
-- (PHFetchOptions *)getFetchPhotosOptions {
-    if (!_fetchPhotosOptions) {
-        
-        _fetchPhotosOptions = [[PHFetchOptions alloc] init];
-        //图片配置设置排序规则
-        _fetchPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    }
-    return _fetchPhotosOptions;
-}
+//- (PHFetchOptions *)getFetchAlbumsOptions {
+//    if (!_fetchAlbumsOptions) {
+//        
+//        _fetchAlbumsOptions = [[PHFetchOptions alloc] init];
+//        //图片配置设置排序规则
+//        _fetchAlbumsOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES]];
+//        
+//    }
+//    return _fetchAlbumsOptions;
+//}
+//
+//- (PHFetchOptions *)getFetchPhotosOptions {
+//    if (!_fetchPhotosOptions) {
+//        
+//        _fetchPhotosOptions = [[PHFetchOptions alloc] init];
+//        //图片配置设置排序规则
+//        _fetchPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES]];
+//    }
+//    return _fetchPhotosOptions;
+//}
 
 - (NSMutableArray *)sectionResults {
     if (!_sectionResults) {
@@ -337,13 +361,13 @@ static const float ListRowHeight = 89.f;
     return _sectionResults;
 }
 
-- (void)setFetchAlbumsOptions:(PHFetchOptions *)fetchAlbumsOptions {
-    _fetchAlbumsOptions = fetchAlbumsOptions;
-}
-
-- (void)setFetchPhotosOptions:(PHFetchOptions *)fetchPhotosOptions {
-    _fetchPhotosOptions = fetchPhotosOptions;
-}
+//- (void)setFetchAlbumsOptions:(PHFetchOptions *)fetchAlbumsOptions {
+//    _fetchAlbumsOptions = fetchAlbumsOptions;
+//}
+//
+//- (void)setFetchPhotosOptions:(PHFetchOptions *)fetchPhotosOptions {
+//    _fetchPhotosOptions = fetchPhotosOptions;
+//}
 
 - (void)setAllowsMoments:(BOOL)allowsMoments {
     _allowsMoments = allowsMoments;

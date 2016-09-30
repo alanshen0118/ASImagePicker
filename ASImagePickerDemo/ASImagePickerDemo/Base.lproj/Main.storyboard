@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -22,22 +22,38 @@
                                 <color key="backgroundColor" red="0.14901961389999999" green="0.61568629740000003" blue="0.87450987099999999" alpha="1" colorSpace="deviceRGB"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oS-R0-QeW">
-                                <rect key="frame" x="249" y="30" width="102" height="30"/>
-                                <state key="normal" title="choose photos"/>
+                                <rect key="frame" x="40" y="30" width="105" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="79C-u5-PWd"/>
+                                    <constraint firstAttribute="height" constant="30" id="wXO-25-Ho6"/>
+                                </constraints>
+                                <state key="normal" title="Choose Photos"/>
                                 <connections>
-                                    <action selector="pickImages:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bcs-kx-bt3"/>
+                                    <action selector="choosePhotos:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLu-cw-4rR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjU-rT-GJs">
+                                <rect key="frame" x="475" y="30" width="85" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="uht-uu-6qy"/>
+                                    <constraint firstAttribute="height" constant="30" id="yTU-KU-zE5"/>
+                                </constraints>
+                                <state key="normal" title="Take Photos"/>
+                                <connections>
+                                    <action selector="takePhotos:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hh7-Dh-395"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vVv-KS-BpH" firstAttribute="top" secondItem="2oS-R0-QeW" secondAttribute="bottom" constant="10" id="6AL-tB-UEE"/>
-                            <constraint firstItem="2oS-R0-QeW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="IEI-Pw-2s9"/>
-                            <constraint firstItem="vVv-KS-BpH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="P1q-cj-RPY"/>
-                            <constraint firstAttribute="trailing" secondItem="vVv-KS-BpH" secondAttribute="trailing" id="ZE4-XO-CvS"/>
-                            <constraint firstItem="2oS-R0-QeW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a81-X0-6vS"/>
-                            <constraint firstAttribute="bottom" secondItem="vVv-KS-BpH" secondAttribute="bottom" id="huO-2t-Eri"/>
-                            <constraint firstItem="vVv-KS-BpH" firstAttribute="top" secondItem="2oS-R0-QeW" secondAttribute="bottom" constant="10" id="zBv-3A-PIc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vVv-KS-BpH" secondAttribute="bottom" id="0NY-DO-q3T"/>
+                            <constraint firstAttribute="trailing" secondItem="CjU-rT-GJs" secondAttribute="trailing" constant="40" id="4Ib-N4-czg"/>
+                            <constraint firstAttribute="trailing" secondItem="vVv-KS-BpH" secondAttribute="trailing" id="FVc-Yt-aqL"/>
+                            <constraint firstItem="2oS-R0-QeW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="JyO-85-yPs"/>
+                            <constraint firstItem="2oS-R0-QeW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="Kxq-9D-WbB"/>
+                            <constraint firstItem="vVv-KS-BpH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LWO-Oa-ncz"/>
+                            <constraint firstItem="CjU-rT-GJs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="jds-D8-YWY"/>
+                            <constraint firstItem="vVv-KS-BpH" firstAttribute="top" secondItem="CjU-rT-GJs" secondAttribute="bottom" constant="10" id="r6S-OD-gYU"/>
                         </constraints>
                     </view>
                     <connections>

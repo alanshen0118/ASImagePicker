@@ -7,9 +7,12 @@
 //
 
 #import <Photos/Photos.h>
+#import "ASMoment.h"
 
 @interface PHFetchResult (Convenience)
 
 - (void)as_trimAlbumsWithFetchOption:(PHFetchOptions *)fetchOptions showsEmpty:(BOOL)showsEmpty completion:(void(^)(NSArray *results))completion;
+
+- (NSMutableArray<ASMoment *> *)as_filterAssetsByMomentGroupType:(ASMomentGroupType)momentGroupType ascending:(BOOL)ascending;
 
 @end
