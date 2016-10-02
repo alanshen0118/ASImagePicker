@@ -11,13 +11,13 @@
 
 @protocol ASImagePickerControllerDelegate;
 
-/*
-typedef NS_ENUM(NSInteger, ASImagePickerControllerSourceType) {
-    ASImagePickerControllerSourceTypePhotoLibrary,//图库
-    ASImagePickerControllerSourceTypeCamera,//相机
-    ASImagePickerControllerSourceTypeSavedPhotosAlbum//相册
-};
 
+typedef NS_ENUM(NSInteger, ASImagePickerControllerSourceType) {
+//    ASImagePickerControllerSourceTypePhotoLibrary,//图库
+    ASImagePickerControllerSourceTypeSavedPhotosAlbum,//相册
+    ASImagePickerControllerSourceTypeCamera//相机
+};
+/*
 typedef NS_ENUM(NSInteger, ASImagePickerControllerQualityType) {
     ASImagePickerControllerQualityTypeHigh = 0,       // highest quality
     ASImagePickerControllerQualityTypeMedium = 1,     // medium quality, suitable for transmission via Wi-Fi
@@ -86,10 +86,9 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
  */
 @property (nonatomic) ASImagePickerControllerAccess access;///入口界面
 
-/*
-
 @property (nonatomic) ASImagePickerControllerSourceType sourceType;///资源类型
 
+/*
 @property (nonatomic) ASImagePickerControllerCameraCaptureMode cameraCaptureMode;///相机采集模式
 
 @property (nonatomic) ASImagePickerControllerCameraDevice cameraDevice;///相机设备
@@ -107,7 +106,9 @@ UIKIT_EXTERN NSString * _Nullable const ASImagePickerControllerLivePhoto NS_AVAI
 
 @property (nonatomic) BOOL allowsMultiSelected;//default value is NO.
 
-//@property (nonatomic) BOOL allowsMoments;//default value is YES.
+@property (nonatomic) BOOL allowsMoments;//default value is YES.
+
+@property (nonatomic) ASMomentGroupType momentGroupType;//if allowsMoments is YES,this property will work.default value is ASMomentGroupTypeDay.
 
 //@property (nonatomic) BOOL allowsMomentsAnimation;//default value is NO.
 

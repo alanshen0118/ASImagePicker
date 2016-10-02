@@ -45,7 +45,11 @@
 
 #pragma mark - public method
 - (void)customPageViews {
+    
     if (!self.showsThumbImage) {
+        _frontImageView = nil;
+        _middleImageView = nil;
+        _lastImageView = nil;
         return;
     }
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -64,17 +68,17 @@
     for (int i = 0; i < self.thumbImages.count; i++) {
         switch (i) {
             case 0:{
-//                self.frontImageView.image = self.placeholderImage;
+                //                self.frontImageView.image = self.placeholderImage;
                 self.frontImageView.image = self.thumbImages[i];
                 break;
             }
             case 1:{
-//                self.middleImageView.image = self.placeholderImage;
+                //                self.middleImageView.image = self.placeholderImage;
                 self.middleImageView.image = self.thumbImages[i];
                 break;
             }
             case 2:{
-//                self.lastImageView.image = self.placeholderImage;
+                //                self.lastImageView.image = self.placeholderImage;
                 self.lastImageView.image = self.thumbImages[i];
                 break;
             }

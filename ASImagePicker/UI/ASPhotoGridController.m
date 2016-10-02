@@ -9,15 +9,19 @@
 #import "ASPhotoGridController.h"
 #import "NSIndexSet+Convenience.h"
 #import "UICollectionView+Convenience.h"
+#import "PHFetchResult+Convenience.h"
 #import "ASPhotoGridCell.h"
 #import "ASPhotoGridSectionHeaderView.h"
+#import "ASMoment.h"
 
 @import PhotosUI;
 
 @interface ASPhotoGridController () <PHPhotoLibraryChangeObserver, UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
+@property (nonatomic, copy) NSMutableArray *moments;
 @property CGRect previousPreheatRect;
 
 @end
@@ -46,6 +50,7 @@ static CGSize AssetGridThumbnailSize;
     [super viewWillAppear:animated];
     [self customPageViews];
     [self setupData];
+    
     
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize cellSize = ((UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout).itemSize;
@@ -80,6 +85,7 @@ static CGSize AssetGridThumbnailSize;
     ASPhotoGridController *photoGridController = [[ASPhotoGridController alloc] init];
     photoGridController.allowsMultiSelected = self.allowsMultiSelected;
     photoGridController.allowsMoments = self.allowsMoments;
+    photoGridController.momentGroupType = self.momentGroupType;
     photoGridController.allowsMomentsAnimation = self.allowsMomentsAnimation;
     photoGridController.allowsEditing = self.allowsEditing;
     photoGridController.allowsImageEditing = self.allowsImageEditing;
@@ -130,18 +136,28 @@ static CGSize AssetGridThumbnailSize;
             } completion:NULL];
         }
         
-        [self resetCachedAssets];
+        
+        
     });
 }
 
 #pragma mark -- UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.assetsFetchResults.count;
+    if (self.allowsMoments) {
+        ASMoment *moment = self.moments[section];
+        return [moment.assets count];
+    }
+    return [self.assetsFetchResults count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     PHAsset *asset = self.assetsFetchResults[indexPath.item];
+    if (self.allowsMoments && self.moments) {
+        ASMoment *moment = self.moments[indexPath.section];
+        asset = moment.assets[indexPath.row];
+    }
     
     ASPhotoGridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellReuseIdentifier forIndexPath:indexPath];
     cell.representedAssetIdentifier = asset.localIdentifier;
@@ -168,45 +184,68 @@ static CGSize AssetGridThumbnailSize;
     return cell;
 }
 
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return 10;
-//}
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    if (self.allowsMoments) {
+        return self.moments.count;
+    }
+    return 1;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ASPhotoGridSectionHeaderView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier forIndexPath:indexPath];
+    ASMoment *moment = self.moments[indexPath.section];
+    switch (self.momentGroupType) {
+        case ASMomentGroupTypeDay:
+            reusableView.textLabel.text = [NSString stringWithFormat:@"%zi年%zi月%zi日", moment.dateComponents.year, moment.dateComponents.month, moment.dateComponents.day];
+            break;
+        case ASMomentGroupTypeMonth:
+            reusableView.textLabel.text = [NSString stringWithFormat:@"%zi年%zi月", moment.dateComponents.year, moment.dateComponents.month];
+            break;
+        case ASMomentGroupTypeYear:
+            reusableView.textLabel.text = [NSString stringWithFormat:@"%zi年", moment.dateComponents.year];
+            break;
+        default:
+            break;
+    }
+    return reusableView;
+}
 
 #pragma mark -- UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ASMoment *moment = self.moments[indexPath.section];
+    PHAsset *asset = moment.assets[indexPath.item];
+    NSLog(@"%@", asset.creationDate);
     return self.allowsMultiSelected && self.imageLimit > 0 ? [collectionView indexPathsForSelectedItems].count < self.imageLimit : YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.allowsMultiSelected) return;
-    if (self.allowsImageEditing) {
-        
+    PHAsset *asset;
+    if (self.allowsMoments) {
+        ASMoment *moment = self.moments[indexPath.section];
+//        NSLog(@"%@", moment.dateComponents);
+        asset = moment.assets[indexPath.item];
     } else {
-        PHAsset *asset = self.assetsFetchResults[indexPath.item];
+        asset = self.assetsFetchResults[indexPath.item];
+    }
+    if (self.allowsImageEditing) {
         [self.imageManager requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
             if (self.completionBlock && imageData) {
                 self.completionBlock(@[imageData], nil);
                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             }
         }];
+        return;
     }
+    
 }
-
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//    ASPhotoGridSectionHeaderView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier forIndexPath:indexPath];
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    dateFormatter.dateFormat = @"yyyy年MM月dd日";
-//    reusableView.textLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-//    return reusableView;
-//}
 
 #pragma mark -- UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateCachedAssets];
 }
-
 
 #pragma mark - event response(e__method)
 - (void)e__confirmImagePickerAction {
@@ -226,10 +265,18 @@ static CGSize AssetGridThumbnailSize;
     
 }
 
+- (void)e__dismissImagePicker {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - public method
 - (void)customPageViews {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"select" style:UIBarButtonItemStylePlain target:self action:@selector(e__confirmImagePickerAction)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(e__confirmImagePickerAction)];
     [self.view addSubview:self.collectionView];
+}
+
+- (void)becomeEntrance {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(e__dismissImagePicker)];
 }
 
 #pragma mark - private method(__method)
@@ -315,10 +362,17 @@ static CGSize AssetGridThumbnailSize;
 
 - (NSArray *)assetsAtIndexPaths:(NSArray *)indexPaths {
     if (indexPaths.count == 0) { return nil; }
-    
     NSMutableArray *assets = [NSMutableArray arrayWithCapacity:indexPaths.count];
+
     for (NSIndexPath *indexPath in indexPaths) {
-        PHAsset *asset = self.assetsFetchResults[indexPath.item];
+        PHAsset *asset;
+        if (self.allowsMoments) {
+            ASMoment *moment = self.moments[indexPath.section];
+            asset = moment.assets[indexPath.item];
+        } else {
+            asset = self.assetsFetchResults[indexPath.item];
+        }
+        
         [assets addObject:asset];
     }
     
@@ -338,37 +392,58 @@ static CGSize AssetGridThumbnailSize;
 #pragma mark - getters and setters
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumInteritemSpacing = 1;
-        layout.minimumLineSpacing = 1;
-        layout.sectionHeadersPinToVisibleBounds = YES;
-//        layout.headerReferenceSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 44);
-        CGFloat row = self.rowLimit <= 0 ? 4 : self.rowLimit;
-        CGFloat itemWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - row + 1) / row;
-        layout.itemSize = CGSizeMake(itemWidth, itemWidth);
-        _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:self.flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[ASPhotoGridCell class] forCellWithReuseIdentifier:CellReuseIdentifier];
         _collectionView.allowsMultipleSelection = self.allowsMultiSelected;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-//        [_collectionView registerClass:[ASPhotoGridSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier];
+        [_collectionView registerClass:[ASPhotoGridSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SectionHeaderReuseIdentifier];
     }
     return _collectionView;
+}
+
+- (UICollectionViewFlowLayout *)flowLayout {
+    if (!_flowLayout) {
+        _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        _flowLayout.minimumInteritemSpacing = 1;
+        _flowLayout.minimumLineSpacing = 1;
+        _flowLayout.sectionHeadersPinToVisibleBounds = YES;
+        _flowLayout.headerReferenceSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 44);
+        CGFloat row = self.rowLimit <= 0 ? 4 : self.rowLimit;
+        CGFloat itemWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - row + 1) / row;
+        _flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+    }
+    return _flowLayout;
 }
 
 - (void)setCompletionBlock:(ASImagePickerCompletionBlock)completionBlock {
     _completionBlock = completionBlock;
 }
 
+- (NSMutableArray *)moments {
+    if (!_moments) {
+        _moments = _assetsFetchResults ? [_assetsFetchResults as_filterAssetsByMomentGroupType:self.momentGroupType ascending:YES] : [NSMutableArray array];
+    }
+    return _moments;
+}
+
+//- (void)setAssetsFetchResults:(PHFetchResult *)assetsFetchResults {
+//    _assetsFetchResults = assetsFetchResults;
+//    NSMutableArray *moments = [allPhotos as_filterAssetsByMomentGroupType:ASMomentGroupTypeYear ascending:YES];
+//}
+
 - (void)setAllowsMultiSelected:(BOOL)allowsMultiSelected {
     _allowsMultiSelected = allowsMultiSelected;
-    self.collectionView.allowsMultipleSelection = allowsMultiSelected;
-    [self.collectionView reloadData];
 }
 
 - (void)setAllowsMoments:(BOOL)allowsMoments {
     _allowsMoments = allowsMoments;
+    if (_allowsMoments) {
+        self.flowLayout.headerReferenceSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 48);
+    } else {
+        self.flowLayout.headerReferenceSize = CGSizeZero;
+    }
 }
 
 - (void)setAllowsMomentsAnimation:(BOOL)allowsMomentsAnimation {
@@ -398,5 +473,12 @@ static CGSize AssetGridThumbnailSize;
     ((UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout).itemSize = CGSizeMake(itemWidth, itemWidth);
     [self.collectionView reloadData];
 }
+
+//- (ASMomentGroupType)momentGroupType {
+//    if (!_momentGroupType) {
+//        _momentGroupType = ASMomentGroupTypeDay;
+//    }
+//    return _momentGroupType;
+//}
 
 @end
